@@ -1,0 +1,9 @@
+flowchart TD
+    Client[Client] --> Ingress[Ingress]
+    Ingress --> Service[ClusterIP Service]
+    Service --> API[Inference API Deployment]
+    API --> Config[ConfigMap]
+    HPA[HorizontalPodAutoscaler] -. scales .-> API
+    PDB[PodDisruptionBudget] -. availability guard .-> API
+    Policy[NetworkPolicy] -. ingress rules .-> API
+    SA[ServiceAccount] -. workload identity .-> API
